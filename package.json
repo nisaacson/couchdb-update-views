@@ -1,5 +1,5 @@
 {
-  "name": "update-views",
+  "name": "update-couchdb-views",
   "version": "1.0.0",
   "description": "Keep couchdb views up to date",
   "main": "sync.js",
