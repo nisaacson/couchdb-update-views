@@ -1,6 +1,6 @@
 Keep couchdb views up to date
-[![Build Status](https://travis-ci.org/nisaacson/update-couchdb-views.png)](https://travis-ci.org/nisaacson/update-couchdb-views)
-[![Dependency Status](https://david-dm.org/nisaacson/update-couchdb-views/status.png)](https://david-dm.org/nisaacson/docparse-scraper-server)
+[![Build Status](https://travis-ci.org/nisaacson/couchdb-update-views.png)](https://travis-ci.org/nisaacson/couchdb-update-views)
+[![Dependency Status](https://david-dm.org/nisaacson/couchdb-update-views/status.png)](https://david-dm.org/nisaacson/couchdb-update-views/status)
 Dependency tracking by [David](http://david-dm.org/)
 
 
