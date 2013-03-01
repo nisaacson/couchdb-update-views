@@ -2,7 +2,6 @@ module.exports = function updateViews(db, docPath, code, cb) {
   // compare function definitions in document and in code
   db.get(docPath, function(err, doc) {
     if (!doc) {
-      // inspect(docPath, 'nno design doc found, creating new one')
       return saveDoc(db, docPath, code, cb)
     }
     var rev = doc._rev

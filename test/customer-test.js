@@ -1,5 +1,4 @@
 var ce = require('cloneextend')
-var _ = require('underscore')
 var async = require('async')
 var inspect = require('eyespect').inspector()
 var uuid = require('node-uuid')
