@@ -13,8 +13,7 @@ npm install -g update-couchdb-views
 # Usage
 To update your documents specify the path to a config file and a directory containing your design documents. Both paths can either by relative to your current working directory or full paths to the file on disk
 ```bash
-cd <path to project folder>
-update-couchdb-views sync.js --config test/config.json --docsDir ./docs
+update-couchdb-views --config ./config.json --docsDir ./docs
 ```
 
 Update code taken from here
