@@ -1,0 +1,40 @@
+{
+  "name": "update-views",
+  "version": "1.0.0",
+  "description": "Keep couchdb views up to date",
+  "main": "sync.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nisaacson/docparse-update-views.git"
+  },
+  "keywords": [
+    "docparse",
+    "couchdb",
+    "cradle"
+  ],
+  "author": "Noah Isaacson",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "498b470956183c3dbf57303b004fdb5bbfc5902c",
+  "dependencies": {
+    "eyespect": "~0.1.8",
+    "optimist": "~0.3.5",
+    "cradle": "~0.6.4",
+    "nconf": "~0.6.7",
+    "should": "~1.2.2",
+    "async": "~0.2.5",
+    "underscore": "~1.4.4"
+  },
+  "devDependencies": {
+    "node-uuid": "~1.4.0",
+    "mocha": "~1.8.1",
+    "moment": "~2.0.0",
+    "cloneextend": "0.0.3"
+  }
+}
