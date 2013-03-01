@@ -24,7 +24,7 @@ function sync(callback) {
 
           var filePath = file.filePath
           inspect(filePath, 'updating document at path')
-          var docPath = file.fileName.replace(/\.js/,'')
+          var docPath = '_design/' + file.fileName.replace(/\.js/,'')
           var doc = require(filePath)
           inspect(docPath, 'docPath')
           update(db, docPath, doc, cb)
