@@ -18,6 +18,7 @@
     "couchdb",
     "cradle"
   ],
+  "bin" : "./cli.js",
   "author": "Noah Isaacson",
   "license": "BSD",
   "readmeFilename": "README.md",
