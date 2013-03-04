@@ -16,6 +16,12 @@ var getDB = require('./getDB')
 var update = require('./update')
 var path = require('path')
 function sync(callback) {
+  var couch = config.get('couch')
+  if (!couch) {
+    return callback({
+      error: 'a "couch" section must be specified in your config file json'
+    })
+  }
   getDB(config, function (err, db) {
     getDocs(docsDir, function (err, files) {
       async.forEach(

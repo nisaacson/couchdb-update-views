@@ -18,7 +18,7 @@
     "couchdb",
     "cradle"
   ],
-  "bin" : "./cli.js",
+  "bin": "./cli.js",
   "author": "Noah Isaacson",
   "license": "BSD",
   "readmeFilename": "README.md",
@@ -28,7 +28,8 @@
     "cradle": "~0.6.4",
     "nconf": "~0.6.7",
     "should": "~1.2.2",
-    "async": "~0.2.5"
+    "async": "~0.2.5",
+    "required-keys": "~1.0.4"
   },
   "devDependencies": {
     "mocha": "~1.8.1",
