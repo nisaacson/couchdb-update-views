@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 var async = require('async')
+var validateConfig = require('./lib/validateConfig')
 var should = require('should')
 var inspect = require('eyespect').inspector()
 var assert = require('assert')
@@ -22,21 +23,24 @@ function sync(callback) {
       error: 'a "couch" section must be specified in your config file json'
     })
   }
-  getDB(config, function (err, db) {
-    getDocs(docsDir, function (err, files) {
-      async.forEach(
-        files,
-        function(file, cb) {
+  validateConfig(couch, function (err, reply) {
+    if (err) { return callback(err) }
+    getDB(config, function (err, db) {
+      getDocs(docsDir, function (err, files) {
+        async.forEach(
+          files,
+          function(file, cb) {
 
-          var filePath = file.filePath
-          inspect(filePath, 'updating document at path')
-          var docPath = '_design/' + file.fileName.replace(/\.js/,'')
-          var doc = require(filePath)
-          inspect(docPath, 'docPath')
-          update(db, docPath, doc, cb)
-        },
-        callback
-      )
+            var filePath = file.filePath
+            inspect(filePath, 'updating document at path')
+            var docPath = '_design/' + file.fileName.replace(/\.js/,'')
+            var doc = require(filePath)
+            inspect(docPath, 'docPath')
+            update(db, docPath, doc, cb)
+          },
+          callback
+        )
+      })
     })
   })
 }
