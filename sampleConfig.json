@@ -1,6 +1,7 @@
 {
   "couch": {
-    "host": "http://localhost",
+    "host": "localhost",
+    "protocol": "http",
     "port": 5984,
     "database": "views_test"
   }
