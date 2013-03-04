@@ -38,7 +38,6 @@ function createIfNeeded(data, cb) {
       return cb(null, db)
     }
     else {
-      inspect('creating database')
       db.create(function (err) {
         if (err) { return cb(err) }
         db.exists(function (err, exists) {

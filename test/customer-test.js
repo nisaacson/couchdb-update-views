@@ -16,7 +16,8 @@ var customer = require('../docs/customer')
 describe('Customer', function () {
   var db
   before(function (done) {
-    dbLib(config, function (err, dbReply) {
+    var couch = config.get('couch')
+    dbLib(couch, function (err, dbReply) {
       should.not.exist(err)
       should.exist(dbReply)
       db = dbReply
