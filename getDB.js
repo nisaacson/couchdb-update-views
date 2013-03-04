@@ -1,17 +1,18 @@
 var cradle = require('cradle')
 var inspect = require('eyespect').inspector()
-module.exports = function (config, cb) {
-  var host = config.get('couch:host')
-  var port = config.get('couch:port')
-  var databaseName = config.get('couch:database')
-
+module.exports = function (couch, cb) {
+  var host = couch.host
+  var protocol = couch.protocol
+  var fullHost = protocol + '://'+host
+  var port = couch.port
+  var databaseName = couch.database
   var opts = {
     cache: false,
     raw: false
   }
 
-  var username = config.get('couch:username')
-  var password = config.get('couch:password')
+  var username = couch.username
+  var password = couch.password
 
   if (username) {
     opts.auth = {
@@ -20,7 +21,7 @@ module.exports = function (config, cb) {
     }
   }
 
-  var c = new(cradle.Connection)(host, port, opts)
+  var c = new(cradle.Connection)(fullHost, port, opts)
   var db = c.database(databaseName)
   var createData = {
     db: db,

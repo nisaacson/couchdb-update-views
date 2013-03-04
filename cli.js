@@ -25,7 +25,7 @@ function sync(callback) {
   }
   validateConfig(couch, function (err, reply) {
     if (err) { return callback(err) }
-    getDB(config, function (err, db) {
+    getDB(couch, function (err, db) {
       getDocs(docsDir, function (err, files) {
         async.forEach(
           files,
