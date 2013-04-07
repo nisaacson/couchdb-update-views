@@ -6,14 +6,14 @@ Dependency tracking by [David](http://david-dm.org/)
 
 # Installation
 ```bash
-npm install -g update-couchdb-views
+npm install -g couchdb-update-views
 ```
 
 
 # Usage
 To update your documents specify the path to a config file and a directory containing your design documents. Both paths can either by relative to your current working directory or full paths to the file on disk
 ```bash
-update-couchdb-views --config ./sampeConfig.json --docsDir ./docs
+couchdb-update-views --config ./sampleConfig.json --docsDir ./docs
 ```
 Look at <project_root>/sampleConfig.json for an example of what your config json file should look like
 
