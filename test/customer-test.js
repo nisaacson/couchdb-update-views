@@ -14,6 +14,7 @@ var config = nconf.argv().env().file({file: configFilePath})
 var dbLib = require('../getDB')
 var customer = require('../docs/customer')
 describe('Customer', function () {
+  this.slow(300)
   var db
   before(function (done) {
     var couch = config.get('couch')
@@ -41,17 +42,54 @@ describe('Customer', function () {
 
   it('should update customer design document', function (done) {
     var newCustomer = ce.clone(customer)
-    newCustomer.views.fooView = {
+    newCustomer.views.test = {
       map: function(doc) {
         emit(doc._id, doc)
+      },
+      reduce: function (keys, values) {
+        return values.length
       }
     }
-    update(db, '_design/customer', newCustomer, done)
+    update(db, '_design/customer', newCustomer, function (err, reply) {
+      should.not.exist(err)
+      // confirm the design document was updated correctly
+      db.get('_design/customer', function (err, reply) {
+        should.not.exist(err)
+        should.exist(reply)
+        var inputTestView = newCustomer.views.test
+        var inputTestViewMap = inputTestView.map.toString().replace(/\s/g,'')
+        var inputTestViewReduce = inputTestView.reduce.toString().replace(/\s/g,'')
+        var newViews = reply.views
+        var newViewMap = newViews.test.map.toString().replace(/\s/g,'')
+        var newViewReduce = newViews.test.reduce.toString().replace(/\s/g,'')
+        newViewReduce.should.eql(inputTestViewReduce)
+        newViewMap.should.eql(inputTestViewMap)
+        done()
+      })
+
+    })
   })
 
   it('should reset customer design document back to original', function (done) {
-    update(db, '_design/customer', customer, done)
+    update(db, '_design/customer', customer, function (err) {
+      should.not.exist(err)
+      db.get('_design/customer', function (err, reply) {
+        should.not.exist(err)
+        should.exist(reply)
+        var inputView = customer.views.all
+        var inputViewMap = inputView.map.toString().replace(/\s/g,'')
+        var inputViewReduce = inputView.reduce.toString().replace(/\s/g,'')
+        var newViews = reply.views
+        var newViewMap = newViews.all.map.toString().replace(/\s/g,'')
+        var newViewReduce = newViews.all.reduce.toString().replace(/\s/g,'')
+        newViewReduce.should.eql(inputViewReduce)
+        newViewMap.should.eql(inputViewMap)
+        done()
+
+      })
+    })
   })
+
   it('should create new customer', function (done) {
     removeAll(db, function (err) {
       should.not.exist(err)
@@ -89,16 +127,21 @@ function removeDesignDoc(db, cb) {
   })
 }
 function removeAll(db, callback) {
-  db.view('customer/all', {}, function (err, docs) {
+  var opts = {
+    include_docs: true,
+    reduce: false
+  }
+  db.view('customer/all', opts, function (err, docs) {
     if (err) { return callback(err) }
     if (docs.length === 0) {
       return callback()
     }
     async.forEachSeries(
       docs,
-      function (doc, cb) {
-        var rev = doc.value._rev
-        var id = doc.value._id
+      function (element, cb) {
+        var doc = element.doc
+        var rev = doc._rev
+        var id = doc._id
         db.remove(id, rev, cb)
       }, callback)
   })

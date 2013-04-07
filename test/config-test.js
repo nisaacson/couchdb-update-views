@@ -8,7 +8,7 @@ describe('Couch validate', function () {
     couch = {
       host: 'localhost',
       protocol: 'http',
-      database: 'fooDB',
+      database: 'views_test',
       port: 5984
     }
   })

@@ -4,13 +4,16 @@ module.exports = {
     all: {
       map: function (doc) {
         if (doc.resource === 'Customer') {
-          emit(doc._id, doc) }
+          emit(doc._id, null) }
+      },
+      reduce: function(key, values) {
+        return sum(values)
       }
     },
     byCustomerName: {
       map: function(doc) {
         if (doc.resource === 'Customer' && doc.customerName) {
-          emit(doc.customerName, doc)
+          emit(doc.customerName, null)
         }
       }
     }

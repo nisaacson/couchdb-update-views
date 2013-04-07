@@ -13,9 +13,9 @@ var docsDir = argv.docsDir
 assert.ok(fs.existsSync(configFilePath), 'config file not found at path: ' + configFilePath)
 assert.ok(fs.existsSync(docsDir), 'docsDir direcotry not found at path: ' + docsDir)
 var config = nconf.argv().env().file({file: configFilePath})
-var getDB = require('./getDB')
 var update = require('./update')
 var path = require('path')
+var cradleNconf = require('cradle-nconf')
 function sync(callback) {
   var couch = config.get('couch')
   if (!couch) {
@@ -25,22 +25,21 @@ function sync(callback) {
   }
   validateConfig(couch, function (err, reply) {
     if (err) { return callback(err) }
-    getDB(couch, function (err, db) {
-      getDocs(docsDir, function (err, files) {
-        async.forEach(
-          files,
-          function(file, cb) {
+    var db = cradleNconf(config)
+    getDocs(docsDir, function (err, files) {
+      async.forEach(
+        files,
+        function(file, cb) {
 
-            var filePath = file.filePath
-            inspect(filePath, 'updating document at path')
-            var docPath = '_design/' + file.fileName.replace(/\.js/,'')
-            var doc = require(filePath)
-            inspect(docPath, 'docPath')
-            update(db, docPath, doc, cb)
-          },
-          callback
-        )
-      })
+          var filePath = file.filePath
+          inspect(filePath, 'updating document at path')
+          var docPath = '_design/' + file.fileName.replace(/\.js/,'')
+          var doc = require(filePath)
+          inspect(docPath, 'docPath')
+          update(db, docPath, doc, cb)
+        },
+        callback
+      )
     })
   })
 }

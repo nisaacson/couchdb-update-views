@@ -1,18 +1,19 @@
+/**
+ * See if the "doc" in the database matches the code in the source file
+ */
+var inspect = require('eyespect').inspector();
+var shouldUpdate = require('./lib//shouldUpdate')
 module.exports = function updateViews(db, docPath, code, cb) {
   // compare function definitions in document and in code
   db.get(docPath, function(err, doc) {
     if (!doc) {
       return saveDoc(db, docPath, code, cb)
     }
-    var rev = doc._rev
-    var docUpdates = doc.updates
-    var codeUpdates = code.updates
-    var docViews = doc.views
-    var codeViews = code.views
-    var viewsPending =  compareDef(doc.views, code.views, docPath)
-    var updatesPending = compareDef(doc.updates, code.updates, docPath)
 
-    if (updatesPending || viewsPending) {
+    var viewsPending =  shouldUpdate(doc.views, code.views)
+    inspect(viewsPending, 'is update needed?')
+    if (viewsPending) {
+      var rev = doc._rev
       return updateDoc(db, docPath, code, rev, cb)
     }
     cb()
@@ -35,27 +36,4 @@ function updateDoc(db, docPath, code, rev, cb) {
     }
     cb(err)
   })
-}
-
-
-function compareDef(docDef, codeDef, docPath) {
-  var u
-  var i = 0
-  if (!codeDef && !docDef) {
-    return false
-  }
-  for (u in docDef) {
-    i++
-    if (!codeDef[u] || docDef[u] != codeDef[u].toString()) {
-      return true
-    }
-  }
-  // check that both doc and code have same number of functions
-  for (u in codeDef) {
-    i--
-    if (i < 0) {
-      return true
-    }
-  }
-  return false
 }
