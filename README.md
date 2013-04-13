@@ -1,8 +1,9 @@
 Keep couchdb views up to date
 [![Build Status](https://travis-ci.org/nisaacson/couchdb-update-views.png)](https://travis-ci.org/nisaacson/couchdb-update-views)
-[![Dependency Status](https://david-dm.org/nisaacson/couchdb-update-views/status.png)](https://david-dm.org/nisaacson/couchdb-update-views/status)
+[![Dependency Status](https://david-dm.org/nisaacson/couchdb-update-views.png)
 Dependency tracking by [David](http://david-dm.org/)
 
+https://david-dm.org/nisaacson/couchdb-update-views#badge-embed
 
 # Installation
 ```bash

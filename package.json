@@ -1,6 +1,6 @@
 {
   "name": "couchdb-update-views",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Keep couchdb views up to date",
   "main": "sync.js",
   "directories": {
@@ -24,12 +24,12 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "eyespect": "~0.1.8",
-    "optimist": "~0.3.5",
     "nconf": "~0.6.7",
     "should": "~1.2.2",
     "async": "~0.2.5",
     "required-keys": "~1.0.4",
-    "cradle": "~0.6.5"
+    "cradle": "~0.6.5",
+    "optimist": "~0.4.0"
   },
   "devDependencies": {
     "mocha": "~1.8.1",
