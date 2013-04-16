@@ -29,6 +29,7 @@
     "async": "~0.2.5",
     "required-keys": "~1.0.4",
     "cradle": "~0.6.5",
+    "cradle-nconf": "1.0.2",
     "optimist": "~0.4.0"
   },
   "devDependencies": {
